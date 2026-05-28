@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programs | Fusion Elite Martial Arts — Rocklin, CA</title>
+  <meta name="description" content="BJJ, Traditional Martial Arts, After School, Summer Camps, Homeschool Academy, and Music Lessons in Rocklin, CA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --black: #000;
+      --card: #111;
+      --card2: #1a1a1a;
+      --red: #CC0000;
+      --red2: #FF1A1A;
+      --yellow: #FFD700;
+      --white: #fff;
+      --muted: #CCC;
+      --dim: #888;
+      --border: #222;
+      --fh: 'Oswald', sans-serif;
+      --fb: 'Nunito', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--fb); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 80px 0; }
+
+    .eyebrow {
+      display: block; color: var(--yellow);
+      font-family: var(--fh); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
+    }
+
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-header h2 {
+      font-family: var(--fh); font-size: 2.5rem; font-weight: 700;
+      text-transform: uppercase; color: var(--white); margin-bottom: 12px;
+    }
+    .section-header p { color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+    .animate { opacity: 0; transform: translateY(25px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .animate.visible { opacity: 1; transform: translateY(0); }
+
+    /* Buttons */
+    .btn-red {
+      background: var(--red); color: var(--white);
+      font-family: var(--fh); font-size: 0.95rem; font-weight: 700;
+      letter-spacing: 1px; padding: 12px 28px;
+      border: 2px solid var(--red); cursor: pointer;
+      transition: all 0.3s; display: inline-block;
+    }
+    .btn-red:hover { background: var(--red2); border-color: var(--red2); box-shadow: 0 0 20px rgba(204,0,0,0.4); }
+
+    .btn-yellow {
+      background: var(--yellow); color: #000;
+      font-family: var(--fh); font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 1px; padding: 16px 40px;
+      border: none; cursor: pointer;
+      transition: all 0.3s; display: inline-block;
+    }
+    .btn-yellow:hover { background: #e6c200; box-shadow: 0 0 20px rgba(255,215,0,0.4); }
+
+    /* ===== NAV ===== */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: background 0.3s, box-shadow 0.3s; }
+    .nav-container {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 70px; max-width: 1300px; margin: 0 auto;
+    }
+    .logo { display: flex; flex-direction: column; line-height: 1.15; }
+    .logo-main { font-family: var(--fh); font-size: 1.35rem; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+    .logo-sub { font-family: var(--fh); font-size: 0.62rem; color: var(--red); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      font-family: var(--fh); font-size: 0.9rem; letter-spacing: 1px;
+      color: var(--white); transition: color 0.2s; padding-bottom: 2px; text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a.active { color: var(--yellow); border-bottom: 2px solid var(--yellow); }
+    .nav-btn {
+      background: var(--red); color: var(--white);
+      font-family: var(--fh); font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 1px; padding: 10px 20px; transition: all 0.3s; text-transform: uppercase;
+    }
+    .nav-btn:hover { background: var(--red2); box-shadow: 0 0 15px rgba(204,0,0,0.4); }
+    .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: #0A0A0A; padding: 16px 40px; border-top: 1px solid var(--border);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white); font-family: var(--fh); font-size: 1rem;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .mobile-cta { color: var(--red); font-weight: 700; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      min-height: 350px;
+      background: linear-gradient(135deg, #000 0%, #1a0000 50%, #000 100%);
+      display: flex; align-items: center;
+      padding: 100px 0 60px;
+    }
+    .page-hero h1 {
+      font-family: var(--fh); font-size: 3rem; font-weight: 700;
+      text-transform: uppercase; color: var(--white); margin-bottom: 12px;
+    }
+    .page-hero p { color: var(--muted); font-size: 1.1rem; }
+    .breadcrumb { font-size: 0.85rem; color: var(--dim); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--dim); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--red); }
+    .breadcrumb span { margin: 0 6px; }
+
+    /* ===== PROGRAMS GRID ===== */
+    .programs-section { background: var(--black); }
+    .programs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .prog-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-top: 4px solid var(--red); padding: 36px 32px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .prog-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(204,0,0,0.12); }
+    .prog-icon { font-size: 3rem; color: var(--red); margin-bottom: 16px; display: block; }
+    .prog-badge {
+      display: inline-block;
+      background: transparent; border: 1px solid var(--yellow);
+      color: var(--yellow); font-family: var(--fh);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 3px 10px; margin-bottom: 14px;
+    }
+    .prog-name {
+      font-family: var(--fh); font-size: 1.4rem; font-weight: 700;
+      text-transform: uppercase; color: var(--white); margin-bottom: 12px;
+    }
+    .prog-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 24px; }
+
+    /* ===== TRIAL BANNER ===== */
+    .trial-banner { background: var(--red); padding: 80px 0; text-align: center; }
+    .trial-banner h2 { font-family: var(--fh); font-size: 2.8rem; font-weight: 700; text-transform: uppercase; color: var(--white); margin-bottom: 14px; }
+    .trial-banner p { color: rgba(255,255,255,0.88); font-size: 1.1rem; margin-bottom: 32px; }
+
+    /* ===== FOOTER ===== */
+    .footer { background: #0A0A0A; padding: 60px 0 0; border-top: 1px solid var(--border); }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo-main { font-family: var(--fh); font-size: 1.5rem; font-weight: 700; color: var(--white); }
+    .footer-logo-sub { font-family: var(--fh); font-size: 0.62rem; color: var(--red); letter-spacing: 2px; display: block; margin-bottom: 12px; }
+    .footer-tagline { color: var(--dim); font-size: 0.9rem; margin-bottom: 20px; }
+    .social-icons { display: flex; gap: 10px; }
+    .social-icon {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); transition: all 0.3s; font-size: 0.9rem;
+    }
+    .social-icon:hover { border-color: var(--red); color: var(--red); }
+    .footer-col-title {
+      font-family: var(--fh); font-size: 0.82rem; letter-spacing: 2px;
+      color: var(--white); text-transform: uppercase;
+      margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--dim); font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--red); }
+    .footer-contact-list { display: flex; flex-direction: column; gap: 12px; }
+    .footer-ci { display: flex; align-items: flex-start; gap: 10px; color: var(--dim); font-size: 0.9rem; line-height: 1.5; }
+    .footer-ci i { color: var(--red); width: 16px; margin-top: 3px; flex-shrink: 0; }
+    .footer-bottom {
+      border-top: 1px solid var(--red); padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p, .footer-bottom span { color: var(--dim); font-size: 0.85rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links, .nav-btn { display: none; }
+      .hamburger { display: block; }
+      .nav-container { padding: 0 20px; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .page-hero h1 { font-size: 2.2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .trial-banner h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img
+          src="https://cdn.prod.website-files.com/69775562bf92e286538c5b4b/69788aa435c186a1b6034cc7_fusion-eliste-logo.avif"
+          alt="Fusion Elite Martial Arts"
+          style="height: 50px; width: auto; object-fit: contain;"
+        />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-btn">BOOK FREE TRIAL</a>
+      <button class="hamburger" id="hamburger">&#9776;</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="mobile-cta">BOOK FREE TRIAL</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><span>/</span><span>Programs</span>
+      </nav>
+      <h1 class="animate">OUR PROGRAMS</h1>
+      <p class="animate">Find the right fit for your child — or yourself.</p>
+    </div>
+  </section>
+
+  <!-- PROGRAMS GRID -->
+  <section class="programs-section section-pad">
+    <div class="container">
+      <div class="section-header animate">
+        <span class="eyebrow">WHAT WE OFFER</span>
+        <h2>Every Program. Every Age. Every Goal.</h2>
+        <p>Six distinct programs built to develop champions on the mat and in life.</p>
+      </div>
+      <div class="programs-grid">
+
+        <div class="prog-card animate">
+          <i class="fa-solid fa-trophy prog-icon"></i>
+          <div class="prog-badge">Ages 5+</div>
+          <div class="prog-name">Brazilian Jiu-Jitsu</div>
+          <p class="prog-desc">The gentle art teaches real self-defense through leverage and strategy. Build confidence, patience, and problem-solving on the mat.</p>
+          <a href="contact.html" class="btn-red">Book Free Trial &rarr;</a>
+        </div>
+
+        <div class="prog-card animate">
+          <i class="fa-solid fa-hand-fist prog-icon"></i>
+          <div class="prog-badge">Ages 4+</div>
+          <div class="prog-name">Traditional Martial Arts</div>
+          <p class="prog-desc">Our core program blends Karate and Krav Maga to build discipline, respect, and practical self-defense skills.</p>
+          <a href="contact.html" class="btn-red">Book Free Trial &rarr;</a>
+        </div>
+
+        <div class="prog-card animate">
+          <i class="fa-solid fa-school prog-icon"></i>
+          <div class="prog-badge">Ages K–8</div>
+          <div class="prog-name">After School Enrichment</div>
+          <p class="prog-desc">Martial arts training, homework help, and structured activities — all in one after-school program parents love.</p>
+          <a href="contact.html" class="btn-red">Book Free Trial &rarr;</a>
+        </div>
+
+        <div class="prog-card animate">
+          <i class="fa-solid fa-sun prog-icon"></i>
+          <div class="prog-badge">Ages 5–14</div>
+          <div class="prog-name">Summer Camps</div>
+          <p class="prog-desc">Action-packed summer days filled with martial arts, games, and team challenges that build real friendships.</p>
+          <a href="contact.html" class="btn-red">Book Free Trial &rarr;</a>
+        </div>
+
+        <div class="prog-card animate">
+          <i class="fa-solid fa-house prog-icon"></i>
+          <div class="prog-badge">All Ages</div>
+          <div class="prog-name">Homeschool Academy</div>
+          <p class="prog-desc">Physical education, social interaction, and enrichment designed specifically for homeschool families.</p>
+          <a href="contact.html" class="btn-red">Book Free Trial &rarr;</a>
+        </div>
+
+        <div class="prog-card animate">
+          <i class="fa-solid fa-music prog-icon"></i>
+          <div class="prog-badge">All Ages</div>
+          <div class="prog-name">Music Lessons</div>
+          <p class="prog-desc">Private piano, guitar, and ukulele lessons taught by experienced instructors who make learning joyful.</p>
+          <a href="contact.html" class="btn-red">Book Free Trial &rarr;</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIAL BANNER -->
+  <section class="trial-banner">
+    <div class="container">
+      <h2 class="animate">READY TO GET STARTED?</h2>
+      <p class="animate">Your first 2 weeks are completely free. No credit card. No pressure. Just results.</p>
+      <a href="contact.html" class="btn-yellow animate">CLAIM YOUR FREE TRIAL &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html">
+            <img
+              src="https://cdn.prod.website-files.com/69775562bf92e286538c5b4b/69788aa435c186a1b6034cc7_fusion-eliste-logo.avif"
+              alt="Fusion Elite Martial Arts"
+              style="height: 60px; width: auto; object-fit: contain; margin-bottom: 12px; display: block;"
+            />
+          </a>
+          <p class="footer-tagline">One Vision. One Mission. One Family.</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact Us</div>
+          <div class="footer-contact-list">
+            <div class="footer-ci"><i class="fa-solid fa-location-dot"></i><span>123 Studio Way, Rocklin, CA 95765</span></div>
+            <div class="footer-ci"><i class="fa-solid fa-phone"></i><span>(916) 555-0100</span></div>
+            <div class="footer-ci"><i class="fa-solid fa-envelope"></i><span>info@fusionelite.net</span></div>
+            <div class="footer-ci"><i class="fa-solid fa-clock"></i><span>Mon–Fri: 3–8 PM<br>Sat: 9 AM–2 PM | Sun: Closed</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Fusion Elite Martial Arts. All rights reserved.</p>
+        <span>Website by Nextwave Growth LLC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 80) {
+        nav.style.background = '#0A0A0A';
+        nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.8)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+      if (link.href === window.location.href) {
+        link.style.color = '#FFD700';
+        link.style.borderBottom = '2px solid #FFD700';
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
