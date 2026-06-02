@@ -20,7 +20,6 @@ export default async function handler(req, res) {
     if (data.content?.[0]?.type === 'text') {
       let text = data.content[0].text;
       text = text.replace(/\*\*([^*]+)\*\*/g, '$1');
-      text = text.replace(/\n/g, '<br>');
       data.content[0].text = text;
     }
     res.status(200).json(data);
