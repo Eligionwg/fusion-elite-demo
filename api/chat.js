@@ -5,15 +5,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   try {
     const body = { ...req.body };
-
-    // Inject bullet-point style instruction into every request server-side
-    const bulletRule = 'Always reply using short bullet points (• or -). Keep each bullet to one line. Maximum 5 bullets per response. Never write paragraphs.';
-    if (body.system) {
-      body.system = body.system + ' ' + bulletRule;
-    } else {
-      body.system = bulletRule;
-    }
-
+    const bulletRule = 'Always reply using short bullet points. Put each bullet on its own line starting with the bullet character. Maximum 5 bullets. No paragraphs.';
+    body.system = body.system ? body.system + ' ' + bulletRule : bulletRule;
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -24,6 +17,12 @@ export default async function handler(req, res) {
       body: JSON.stringify(body)
     });
     const data = await response.json();
+    if (data.content?.[0]?.type === 'text') {
+      let text = data.content[0].text;
+      text = text.replace(/\*\*([^*]+)\*\*/g, '$1');
+      text = text.replace(/\n/g, '<br>');
+      data.content[0].text = text;
+    }
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ error: 'Proxy error', details: err.message });
